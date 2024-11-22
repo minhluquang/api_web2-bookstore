@@ -20,14 +20,14 @@ if(!empty($data->authorName) && !empty($data->authorEmail) ){
 
     if($author->create()){
       http_response_code(201);
-      echo json_encode(array("message" => "Author was created."));
+      echo json_encode(array("message" => "Author was created.", 'success' => true));
     }
     else{
       http_response_code(503);
-      echo json_encode(array("message" => "Unable to create author."));
+      echo json_encode(array("message" => "Unable to create author.", 'success' => false));
     }
 } else{
     http_response_code(400);
-    echo json_encode(array("message" => "Unable to create author. Data is incomplete."));
+    echo json_encode(array("message" => "Unable to create author. Data is incomplete.", 'success' => false));
 }
 ?>

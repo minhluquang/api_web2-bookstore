@@ -18,12 +18,12 @@ if (isset($_GET['id'])) {
 
   if ($author->delete()) {  
     http_response_code(200);
-    echo json_encode(array("message" => "Author status updated to 0."));
+    echo json_encode(array("message" => "Author status updated to 0.", 'success' => true));
   } else {
     http_response_code(503);
-    echo json_encode(array("message" => "Unable to update author status."));
+    echo json_encode(array("message" => "Unable to update author status.", 'success' => false));
   }
 } else {
   http_response_code(400);
-  echo json_encode(array("message" => "Unable to update author. 'authorId' is required."));
+  echo json_encode(array("message" => "Unable to update author. 'authorId' is required.", 'success' => false));
 }

@@ -21,14 +21,14 @@ if(!empty($data->authorId) && !empty($data->authorName) && !empty($data->authorE
 
     if($author->update()){
       http_response_code(201);
-      echo json_encode(array("message" => "Author was updated."));
+      echo json_encode(array("message" => "Author was updated.", 'success' => true));
     }
     else{
       http_response_code(503);
-      echo json_encode(array("message" => "Unable to update author."));
+      echo json_encode(array("message" => "Unable to update author.", 'success' => false));
     }
 } else{
     http_response_code(400);
-    echo json_encode(array("message" => "Unable to update author. Data is incomplete."));
+    echo json_encode(array("message" => "Unable to update author. Data is incomplete.", 'success' => false));
 }
 ?>

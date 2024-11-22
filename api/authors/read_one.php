@@ -43,19 +43,20 @@ try {
     } else {
       // Nếu không tìm thấy tác giả
       http_response_code(404);
-      echo json_encode(array('message' => 'Author not found.'));
+      echo json_encode(array('message' => 'Author not found.', 'success' => false));
     }
   } else {
     // Nếu không có 'id' trong URL
     http_response_code(400);
-    echo json_encode(array('message' => 'Author ID is required.'));
+    echo json_encode(array('message' => 'Author ID is required.', 'success' => false));
   }
 } catch (Exception $e) {
   // Nếu có lỗi xảy ra trong quá trình xử lý
   http_response_code(500);
   echo json_encode(array(
     'message' => 'Internal Server Error',
-    'error' => $e->getMessage()
+    'error' => $e->getMessage(),
+    'success' => false
   ));
 }
 ?>
