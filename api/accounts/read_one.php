@@ -2,6 +2,18 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
+// Kiểm tra phương thức request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405);
+    echo json_encode(array("message" => "Phương thức không được cho phép", "success" => false));
+    exit();
+}
+
 include_once('../../config/db.php');
 include_once('../../model/accounts.php');
 
@@ -16,9 +28,9 @@ try {
         $accountUsername = $_GET['username'];
 
         if (trim($accountUsername) === '') {
-          http_response_code(400);
-          echo json_encode(array('message' => 'Username không được để trống', 'success' => false));
-          exit; 
+            http_response_code(400);
+            echo json_encode(array('message' => 'Username không được để trống', 'success' => false));
+            exit;
         }
 
         $account->accountUsername = $accountUsername;
@@ -65,4 +77,3 @@ try {
         'success' => false
     ));
 }
-?>

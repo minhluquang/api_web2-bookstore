@@ -5,6 +5,18 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+// Kiểm tra phương thức request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
+    http_response_code(405);
+    echo json_encode(array("message" => "Phương thức không được cho phép", "success" => false));
+    exit();
+}
+
 include_once('../../config/db.php');
 include_once('../../model/accounts.php');
 
@@ -68,4 +80,3 @@ if (
     http_response_code(400);
     echo json_encode(array("message" => "Dữ liệu không hợp lệ.", "success" => false));
 }
-?>

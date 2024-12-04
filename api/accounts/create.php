@@ -5,6 +5,18 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+// Kiểm tra phương thức request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(array("message" => "Phương thức không được cho phép", "success" => false));
+    exit();
+}
+
 include_once('../../config/db.php');
 include_once('../../model/accounts.php');
 include_once('../../model/deliveryInfoes.php');
@@ -97,4 +109,3 @@ if ($verifyCode->create() && $account->create() && $deliveryInfo->create()) {
     http_response_code(503);
     echo json_encode(array("message" => "Hệ thống không thể tạo tài khoản", 'success' => false));
 }
-?>
